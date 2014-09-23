@@ -10,31 +10,43 @@ class MedocController
 {
 	public function indexAction(Request $request , Application $app)
 	{
-		$limit = 20;
+		$limit = 100;
 		$offset = 0;
 		$medocs = $app['repository.medoc']->findAll($limit, $offset);
 		return $app['twig']->render('medocs.html.twig',array('medocs' => $medocs));
 	}
-	public function csvAction(Request $request, Application $app)
+	public function viewCsvAction(Application $app)
 	{
-		include_once 'csv.php';
-    	return $app['twig']->render('medocs.html.twig', array(
+		$tableau = $this->readCsvFile("medicaments2014.csv");
+
+    	return $app['twig']->render('medocsCsvView.html.twig', array(
         	'medocs' => $tableau,
     	));
 	}
-	
-	public function addAction(Request $request, Application $app)
-	{
-		
-	    // some default data for when the form is displayed the first time
-	    $data = array(
-	        'name' => 'Your name',
-	        'email' => 'Your email',
-	    );
 
+	public function addCsvAction(Request $request, Application $app)
+	{
+		$tableau = $this->readCsvFile("medicaments2014.csv");
+		foreach ($tableau as $medoc) {
+			$app['repository.medoc']->save($medoc);
+		}
+		$app->redirect('homepage');
+	}
+	
+	public function addMedocFormAction(Application $app)
+	{
+		$form = $app['form.factory']->createBuilder('form')
+	        ->add('name')
+	        ->add('price')
+	        ->getForm();
+	     // display the form
+	    return $app['twig']->render('addForm.html.twig', array('form' => $form->createView()));
+	}
+	
+	public function addMedocAction(Request $request, Application $app)
+	{
 	    $form = $app['form.factory']->createBuilder('form')
 	        ->add('name')
-	        ->add('quantity')
 	        ->add('price')
 	        ->getForm();
 
@@ -42,15 +54,32 @@ class MedocController
 
 	    if ($form->isValid()) {
 	        $data = $form->getData();
-	        var_dump($data);
-	        // do something with the data
-
-	        // redirect somewhere
-	        return $app->redirect('...');
+	        $app['repository.medoc']->save($data);
 	    }
-
-	    // display the form
-	    return $app['twig']->render('addForm.html.twig', array('form' => $form->createView()));
 	}
-		
+
+	private function readCsvFile($path)
+	{
+		$row = 1;
+		$tableau = array();
+		if (($handle = fopen($path, "r")) !== FALSE) {
+		    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+		        $num = count($data);
+		        //echo "<p> $num champs à la ligne $row: <br /></p>\n";
+		        for ($c=0; $c < $num; $c++) {
+		        	$explode = explode(';', $data[$c]);
+		        	//var_dump($explode);
+		            $tableau[$row]['name'] =  $explode[1];
+		            $tableau[$row]['price'] =  $explode[2];
+		            $tableau[$row]['date'] =  'NULL';
+		            $tableau[$row]['sell'] =  'NULL';
+		            $tableau[$row]['id'] =  'NULL';
+		        }
+        		$row++;
+    		}
+    		fclose($handle);
+
+    		return $tableau;
+		}
+	}
 }

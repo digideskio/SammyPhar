@@ -1,24 +1,21 @@
 {% extends 'head.html.twig' %}
  	{% block content %}
+ 		<form method="post" action="{{path('addCsv')}}">
+ 			<input type="submit" value="valider">
+ 		</form>
  		<table class="striped alternate" summary="">
 			<caption> Médicaments</caption>
 			<thead>
 			 	<th>Nom </th>
-			 	<th>Date de création </th>
-			 	<th>Vendu </th>
 			 	<th>Prix € </th>
-			 	<th><input type="checkbox" name="vendu" id=""> </th>
 			</thead>
 			<tbody>
 			{% for medoc in medocs %}
 				<tr>
 					<td> {{ medoc.name }} </td>
-					<td> {{ medoc.date }} </td>
-					<td> {{medoc.sell}}</td>
 					<td> {{medoc.price }} €</td>
-					<td> <input type="checkbox" name="vendu" id="{{medoc.id}}"> </td>
 				</tr>
 			{% endfor %}
 			</tbody>
 		</table>
-	{% endblock content %}
+ 	{% endblock content %}

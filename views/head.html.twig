@@ -4,9 +4,9 @@
 <!--[if IE 8]> <html class="no-js ie8 ie678" lang="fr"> <![endif]-->
 <!--[if IE 9]> <html class="no-js ie9" lang="fr"> <![endif]-->
 <!--[if gt IE 9]> <!-->
-<html class="no-js" lang="fr"> <!--<![endif]-->
+<html class="no-js" lang="fr" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr"> <!--<![endif]-->
 	<head>
-		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 		<title>SammyPhar Management </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,13 @@
 		<link rel="stylesheet" href="../css/styles.css" media="all">
 	</head>
 	<body>
-		{% block content %}
-		{% endblock content %}
+	<header id="header" role="banner" class="line pam">
+	</header>
+		{% include 'menu.html.twig' %}
+		<div id="main" role="main" class="mod pam">
+			{% block content %}
+			{% endblock content %}
+		</div>
+		<footer> powered by EZS</footer>
 	</body>
 </html>

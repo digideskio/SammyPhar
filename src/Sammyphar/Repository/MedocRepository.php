@@ -23,11 +23,10 @@ class MedocRepository
      */
     public function save($medoc)
     {
-    	$medocData['date'] = time();
-        $this->db->insert('medoc', $medocData);
+    	$medoc['date'] = time();
+        $this->db->insert('medoc', $medoc);
         // Get the id of the newly created medoc and set it on the entity.
         $id = $this->db->lastInsertId();
-        $medoc->setId($id);
     }
 
         /**
