@@ -30,16 +30,16 @@ class MedocRepository
     }
 
         /**
-     * Returns an artist matching the supplied id.
+     * Returns a medoc matching the supplied id.
      *
      * @param integer $id
      *
-     * @return \MusicBox\Entity\Artist|false An entity object if found, false otherwise.
+     * @return \Sammyphar\Entity\Medoc|false An entity object if found, false otherwise.
      */
     public function find($id)
     {
-        $artistData = $this->db->fetchAssoc('SELECT * FROM artists WHERE artist_id = ?', array($id));
-        return $artistData ? $this->buildArtist($artistData) : FALSE;
+        $artistData = $this->db->fetchAssoc('SELECT * FROM medoc WHERE id = ?', array($id));
+        return $artistData ? $artistData : FALSE;
     }
 
     /**

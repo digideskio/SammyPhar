@@ -2,6 +2,7 @@
 namespace Sammyphar\Controller;
 
 use Silex\Application;
+use Silex\Application\FormTrait;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -56,6 +57,16 @@ class MedocController
 	        $data = $form->getData();
 	        $app['repository.medoc']->save($data);
 	    }
+	}
+
+	public function viewMedocAction(Request $request, Application $app)
+	{
+		$medoc = $request->attributes->get('medoc');
+		if (!$medoc) {
+            $app->abort(404, 'The requested medoc was not found.');
+        }
+        $form = $app->form['factory.form'];
+		$app['twig']->render('modifyMedoc.html.twig', array('form' => $form->createView()));
 	}
 
 	private function readCsvFile($path)

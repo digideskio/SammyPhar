@@ -12,7 +12,7 @@
 			<tbody>
 			{% for medoc in medocs %}
 				<tr>
-					<td> {{ medoc.name }} </td>
+					<td><a href="{{ path('viewMedoc',{'medoc':medoc.id}) }}"> {{ medoc.name }}</a>  </td>
 					<td> {{ medoc.date }} </td>
 					<td> {{medoc.sell}}</td>
 					<td> {{medoc.price }} €</td>
