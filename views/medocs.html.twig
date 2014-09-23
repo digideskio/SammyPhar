@@ -1,0 +1,26 @@
+{% extends 'head.html.twig' %}
+ 	{% block content %}
+ 	
+ 		<a href="{{ path('add') }}"> ajouter </a>
+ 		<table class="striped alternate" summary="">
+			<caption> Médicaments</caption>
+			<thead>
+			 	<th>Nom </th>
+			 	<th>Quantité </th>
+			 	<th>Date de création </th>
+			 	<th>Vendu </th>
+			 	<th>Prix € </th>
+			</thead>
+			<tbody>
+			{% for medoc in medocs %}
+				<tr>
+					<td> {{ medoc.titre }} </td>
+					<td> {{ medoc.prix }} </td>
+					<td> </td>
+					<td> <input type="checkbox" name="vendu" id=""> </td>
+					<td> </td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+ 	{% endblock content %}
