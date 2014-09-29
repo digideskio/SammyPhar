@@ -8,7 +8,7 @@ $app['controllers']->convert('medoc', function ($id) use ($app) {
 });
 
 // Register routes.
-$app->get('/', 'Sammyphar\Controller\MedocController::indexAction')
+$app->match('/', 'Sammyphar\Controller\MedocController::indexAction')
    ->bind('homepage');
 
 $app->match('/addMedocForm', 'Sammyphar\Controller\MedocController::addMedocFormAction')
@@ -21,3 +21,7 @@ $app->post('/addCsv', 'Sammyphar\Controller\MedocController::addCsvAction')
    ->bind('addCsv');
 $app->get('/viewMedoc/{medoc}', 'Sammyphar\Controller\MedocController::viewMedocAction')
    ->bind('viewMedoc');
+$app->post('/modifyMedoc/{medoc}', 'Sammyphar\Controller\MedocController::viewMedocAction')
+   ->bind('modifyMedoc');
+$app->get('/deleteMedoc/{medoc}', 'Sammyphar\Controller\MedocController::deleteMedocAction')
+   ->bind('deleteMedoc');

@@ -1,0 +1,8 @@
+{% extends 'head.html.twig' %}
+ 	{% block content %}
+ 		<form action="{{ path('modifyMedoc',{'medoc':medoc.id}) }}" method="post" class="form w40">
+		    {{ form_widget(form) }}
+		    <input type="submit" name="submit" id="submit" />
+		</form>
+		<a href="{{ path('deleteMedoc',{'medoc':medoc.id}) }}"> supprimer </a>
+ 	{% endblock content %}

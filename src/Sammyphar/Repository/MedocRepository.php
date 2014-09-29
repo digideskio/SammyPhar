@@ -29,6 +29,11 @@ class MedocRepository
         $id = $this->db->lastInsertId();
     }
 
+    public function upadte(Medoc $medoc)
+    {
+        $this->db->upadte('medoc',$medoc);
+    }
+
         /**
      * Returns a medoc matching the supplied id.
      *
@@ -61,6 +66,8 @@ class MedocRepository
             $orderBy = array('name' => 'ASC');
         }
 
+        $limit = $limit == 0 ? 100 : $limit;
+
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
             ->select('m.*')
@@ -69,8 +76,13 @@ class MedocRepository
             ->setFirstResult($offset)
             ->orderBy('m.' . key($orderBy), current($orderBy));
         $statement = $queryBuilder->execute();
-        $artistsData = $statement->fetchAll();
+        $medocData = $statement->fetchAll();
         
-        return $artistsData;
+        return $medocData;
+    }
+
+    public function delete($medoc)
+    {
+        return $this->db->delete('medoc', array('id' => $medoc['id']));
     }
 }
