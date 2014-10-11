@@ -1,5 +1,6 @@
 <?php
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\ParameterBag;
 /* Loading Kernel  */
 $app->register(new Silex\Provider\FormServiceProvider());
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
@@ -21,6 +22,13 @@ $app['repository.medoc'] = $app->share(function ($app) {
     return new Sammyphar\Repository\MedocRepository($app['db']);
 });
 
+
+$app->before(function (Request $request) {
+    if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
+        $data = json_decode($request->getContent(), true);
+        $request->request->replace(is_array($data) ? $data : array());
+    }
+});
 // Register the error handler.
 $app->error(function (\Exception $e, $code) use ($app) {
     if ($app['debug']) {

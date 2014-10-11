@@ -72,9 +72,11 @@ class MedocRepository
         $queryBuilder
             ->select('m.*')
             ->from('medoc', 'm')
+            ->where('m.sell = :sell')
             ->setMaxResults($limit)
             ->setFirstResult($offset)
-            ->orderBy('m.' . key($orderBy), current($orderBy));
+            ->orderBy('m.' . key($orderBy), current($orderBy))
+            ->setParameter('sell',false);
         $statement = $queryBuilder->execute();
         $medocData = $statement->fetchAll();
         

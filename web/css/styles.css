@@ -93,12 +93,7 @@ caption {
 }  
 
 #menu {
-position: absolute;
-top: 43%;
-margin-top: -162px;
-left: 5px;
-z-index: 100;
-width: 130px;
+
 }
 
 .btn_menu {

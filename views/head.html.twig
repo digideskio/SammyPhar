@@ -13,8 +13,8 @@
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-		<link rel="stylesheet" href="../css/knacss.css" media="all">
-		<link rel="stylesheet" href="../css/styles.css" media="all">
+		<link rel="stylesheet" href="{{ app.request.basepath }}/css/knacss.css" media="all">
+		<link rel="stylesheet" href="{{ app.request.basepath }}/css/styles.css" media="all">
 	</head>
 	<body>
 	<header id="header" role="banner" class="line pam">
@@ -25,5 +25,7 @@
 			{% endblock content %}
 		</div>
 		<footer> powered by EZS</footer>
+		<script src="{{ app.request.basepath }}/js/jquery-2.1.1.min.js"></script>
+    	<script src="{{ app.request.basepath }}/js/medoc.js"></script>
 	</body>
 </html>
